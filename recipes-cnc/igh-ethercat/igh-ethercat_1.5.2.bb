@@ -9,12 +9,12 @@ S = "${WORKDIR}/git"
 
 SRCBRANCH = "stable-1.5"
 SRCREV = "f1942fdb564edec9a067c7e0c487f2d53b5f548b"
-KERNEL_SRC ?= "git://github.com/JDSquared/etherlabmaster.git;protocol=https"
-SRC_URI = "${KERNEL_SRC};branch=${SRCBRANCH}"
+ETH_SRC ?= "git://github.com/JDSquared/etherlabmaster.git;protocol=https"
+SRC_URI = "${ETH_SRC};branch=${SRCBRANCH}"
 
 inherit autotools pkgconfig
 
-EXTRA_OECONF = " --prefix=/usr --sysconfdir=/etc --localstatedir=/var --disable-8139too --disable-e100 --disable-e1000 --disable-e1000e --disable-r8169"
+EXTRA_OECONF = " --with-linux-dir=${STAGING_KERNEL_DIR} --prefix=/usr --sysconfdir=/etc --localstatedir=/var --disable-8139too --disable-e100 --disable-e1000 --disable-e1000e --disable-r8169"
 
 do_configure[depends] += "virtual/kernel:do_shared_workdir"
 do_configure_prepend () {
