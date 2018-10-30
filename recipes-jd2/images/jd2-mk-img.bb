@@ -13,6 +13,7 @@ IMAGE_FEATURES += " \
 CORE_IMAGE_EXTRA_INSTALL += " \
 	packagegroup-core-full-cmdline \
 	packagegroup-core-buildessential \
+	packagegroup-jd2-cnc-full \
 	nodejs \
 	flex \
 	git \
@@ -22,9 +23,8 @@ CORE_IMAGE_EXTRA_INSTALL += " \
 	python-compiler \
 	strace \
 	openssl \
-	kernel-dev \
 "
 
 EXTRA_USERS_PARAMS = "useradd mchadmn; \
-					  usermod -p bmoc mchadmn; \
+					  usermod -P bmoc mchadmn; \
 					  usermod -a -G sudo mchadmn;"
