@@ -10,8 +10,6 @@ SRCREV = "f1942fdb564edec9a067c7e0c487f2d53b5f548b"
 KERNEL_SRC ?= "git://github.com/JDSquared/etherlabmaster.git;protocol=https"
 SRC_URI = "${KERNEL_SRC};branch=${SRCBRANCH}"
 
-S = "${WORKDIR}/ethercat-${PV}"
-
 inherit autotools pkgconfig
 
 EXTRA_OECONF = " --prefix=/usr --sysconfdir=/etc --localstatedir=/var --disable-8139too --disable-e100 --disable-e1000 --disable-e1000e --disable-r8169"
