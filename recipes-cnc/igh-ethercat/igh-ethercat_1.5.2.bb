@@ -18,7 +18,10 @@ EXTRA_OECONF = " --with-linux-dir=${STAGING_KERNEL_DIR} --prefix=/usr --sysconfd
 
 do_configure[depends] += "virtual/kernel:do_shared_workdir"
 do_configure_prepend () {
+    echo Kernel Dir ${STAGING_KERNEL_DIR}
     ls ${STAGING_KERNEL_DIR}
+    echo ls -l .config
+    ls -l ${STAGING_KERNEL_DIR}/.config
 
     cd ${S}
     ./bootstrap
