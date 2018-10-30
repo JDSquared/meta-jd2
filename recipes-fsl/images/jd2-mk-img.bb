@@ -22,8 +22,9 @@ CORE_IMAGE_EXTRA_INSTALL += " \
 	python-compiler \
 	strace \
 	openssl \
+	kernel-dev \
 "
 
 EXTRA_USERS_PARAMS = "useradd mchadmn; \
-					  usermod -p 'bmoc' mchadmn; \
+					  usermod -p bmoc mchadmn; \
 					  usermod -a -G sudo mchadmn;"
