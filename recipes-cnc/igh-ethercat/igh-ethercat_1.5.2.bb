@@ -14,15 +14,10 @@ SRC_URI = "${ETH_SRC};branch=${SRCBRANCH}"
 
 inherit autotools pkgconfig
 
-EXTRA_OECONF = " --with-linux-dir=${STAGING_KERNEL_DIR} --prefix=/usr --sysconfdir=/etc --localstatedir=/var --disable-8139too --disable-e100 --disable-e1000 --disable-e1000e --disable-r8169"
+EXTRA_OECONF = " --with-linux-dir=${STAGING_KERNEL_BUILDDIR} --prefix=/usr --sysconfdir=/etc --localstatedir=/var --disable-8139too --disable-e100 --disable-e1000 --disable-e1000e --disable-r8169"
 
-do_configure[depends] += "virtual/kernel:do_shared_workdir"
+do_configure[depends] += "virtual/kernel:do_compile_kernelmodules"
 do_configure_prepend () {
-    echo Kernel Dir ${STAGING_KERNEL_DIR}
-    ls ${STAGING_KERNEL_DIR}
-    echo ls -l .config
-    ls -l ${STAGING_KERNEL_DIR}/.config
-
     cd ${S}
     ./bootstrap
 }
