@@ -1,0 +1,11 @@
+# Service to disable runtime power management at boot
+[Unit]
+Description=Service to disable runtime power management
+After=network.target
+
+[Service]
+ExecStart=/usr/sbin/disable-runtime-power-mgmt.sh
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
