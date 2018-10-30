@@ -15,7 +15,7 @@ PACKAGES = " \
 # machine configuration file.
 MACHINE_ESSENTIAL_EXTRA_RDEPENDS ?= ""
 
-RDEPENDS_${PN}-base = " \
+RDEPENDS_${PN}-full = " \
     igh-ethercat \
     ${MACHINE_ESSENTIAL_EXTRA_RDEPENDS} \
 "
