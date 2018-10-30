@@ -22,7 +22,7 @@ CORE_IMAGE_EXTRA_INSTALL += " \
 	python-compiler \
 	strace \
 	openssl \
-	igh-ethercat \
+	kernel-devsrc \
 "
 
 EXTRA_USERS_PARAMS = "useradd mchadmn; \
