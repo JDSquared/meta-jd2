@@ -17,11 +17,12 @@ inherit autotools pkgconfig
 EXTRA_OECONF = " --with-linux-dir=${STAGING_KERNEL_BUILDDIR} --prefix=/usr --sysconfdir=/etc --localstatedir=/var --disable-8139too --disable-e100 --disable-e1000 --disable-e1000e --disable-r8169"
 
 do_configure[depends] += "virtual/kernel:do_compile_kernelmodules"
-do_configure_prepend () {
+do_configure () {
     cd ${S}
     ./bootstrap
+    oe_runconf
 }
 
 do_compile() {
-    oe_runmake modules
+    oe_runmake all modules
 }
