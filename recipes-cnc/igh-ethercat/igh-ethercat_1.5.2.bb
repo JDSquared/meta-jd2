@@ -24,5 +24,6 @@ do_configure () {
 }
 
 do_compile() {
+    cd ${S}
     oe_runmake all modules
 }
