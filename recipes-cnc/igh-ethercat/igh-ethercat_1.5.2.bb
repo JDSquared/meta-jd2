@@ -23,5 +23,5 @@ do_configure_prepend () {
 }
 
 do_compile() {
-    oe_runmake all modules
+    oe_runmake modules
 }
