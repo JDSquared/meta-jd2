@@ -18,5 +18,6 @@ EXTRA_OECONF = " --prefix=/usr --sysconfdir=/etc --localstatedir=/var --disable-
 
 do_configure[depends] += "virtual/kernel:do_shared_workdir"
 do_configure_prepend () {
-    ${S}/bootstrap
+    cd ${S}
+    ./bootstrap
 }
