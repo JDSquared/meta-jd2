@@ -21,3 +21,7 @@ do_configure_prepend () {
     cd ${S}
     ./bootstrap
 }
+
+do_compile() {
+    oe_runmake all modules
+}
