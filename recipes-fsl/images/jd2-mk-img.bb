@@ -8,7 +8,6 @@ inherit core-image distro_features_check extrausers
 
 IMAGE_FEATURES += " \
     ssh-server-openssh \
-    debug-tweaks \
 "
 
 CORE_IMAGE_EXTRA_INSTALL += " \
@@ -28,5 +27,3 @@ CORE_IMAGE_EXTRA_INSTALL += " \
 EXTRA_USERS_PARAMS = "useradd mchadmn; \
 					  usermod -p 'bmoc' mchadmn; \
 					  usermod -a -G sudo mchadmn;"
-
-DISTRO_FEATURES_remove = "bluetooth wifi alsa opengl"
