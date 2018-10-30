@@ -13,7 +13,6 @@ IMAGE_FEATURES += " \
 CORE_IMAGE_EXTRA_INSTALL += " \
 	packagegroup-core-full-cmdline \
 	packagegroup-core-buildessential \
-	packagegroup-jd2-cnc \
 	nodejs \
 	flex \
 	git \
@@ -23,6 +22,7 @@ CORE_IMAGE_EXTRA_INSTALL += " \
 	python-compiler \
 	strace \
 	openssl \
+	igh-ethercat \
 "
 
 EXTRA_USERS_PARAMS = "useradd mchadmn; \
