@@ -13,7 +13,7 @@ IMAGE_FEATURES += " \
 CORE_IMAGE_EXTRA_INSTALL += " \
 	packagegroup-core-full-cmdline \
 	packagegroup-core-buildessential \
-	packagegroup-jd2-cnc-full \
+	packagegroup-jd2-cnc \
 	nodejs \
 	flex \
 	git \

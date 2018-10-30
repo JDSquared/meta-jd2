@@ -8,14 +8,14 @@ PACKAGE_ARCH = "${MACHINE_ARCH}"
 inherit packagegroup
 
 PACKAGES = " \
-    ${PN}-full \
+    ${PN} \
 "
 
 # The essential packages for device bootup that may be set in the
 # machine configuration file.
 MACHINE_ESSENTIAL_EXTRA_RDEPENDS ?= ""
 
-RDEPENDS_${PN}-full = " \
+RDEPENDS_${PN} = " \
     igh-ethercat \
     ${MACHINE_ESSENTIAL_EXTRA_RDEPENDS} \
 "
