@@ -12,7 +12,7 @@ RDEPENDS_${KERNEL_PACKAGE_NAME}-base = ""
 LOCALVERSION_imx7-jd2-ethcb-var-som = "-mx7"
 
 SRCBRANCH = "imx_4.9.88_2.0.0_ga-var01-rt62"
-SRCREV = "6783f2d6a90d0d346462d6411e0cb4131bb3e364"
+SRCREV = "72d8e81332f9e61a8ba691b0b30f8c5f87bc483a"
 KERNEL_SRC ?= "git://github.com/JDSquared/linux-imx.git;protocol=https"
 SRC_URI = "${KERNEL_SRC};branch=${SRCBRANCH}"
 
