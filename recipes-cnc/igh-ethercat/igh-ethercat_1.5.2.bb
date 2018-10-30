@@ -17,3 +17,6 @@ inherit autotools pkgconfig
 EXTRA_OECONF = " --prefix=/usr --sysconfdir=/etc --localstatedir=/var --disable-8139too --disable-e100 --disable-e1000 --disable-e1000e --disable-r8169"
 
 do_configure[depends] += "virtual/kernel:do_shared_workdir"
+do_configure_prepend () {
+    ./bootstrap
+}
