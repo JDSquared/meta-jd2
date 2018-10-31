@@ -16,8 +16,8 @@ FILES_${PN} += " disable-runtime-power-mgmt.service \
                  disable-runtime-power-mgmt.sh"
 
 do_install () {
-    install -d ${D}${libexec}/
-    install -m 0755 ${S}/disable-runtime-power-mgmt.sh ${D}${libexec}/disable-runtime-power-mgmt.sh
+    install -d ${D}${libexecdir}/
+    install -m 0755 ${S}/disable-runtime-power-mgmt.sh ${D}${libexecdir}/disable-runtime-power-mgmt.sh
     install -d ${D}${systemd_system_unitdir}
     install -m 0755 ${S}/disable-runtime-power-mgmt.service ${D}${systemd_system_unitdir}/
 }
