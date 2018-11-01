@@ -45,11 +45,11 @@ fixup_sshd(){
 	# Enable PAM for ssh links
 	# Fixes an issue where users cannot change ulimits when logged in via
 	# ssh, which causes some Machinekit functions to fail
-	sed -i 's/^UsePAM.*$/UsePam yes/' ${IMAGE_ROOTFS}/etc/ssh/sshd_config
+	sed -i 's/^#UsePAM.*$/UsePam yes/' ${IMAGE_ROOTFS}/etc/ssh/sshd_config
 	# Disable GSSAPI authentication to speed up ssh authentication
 	sed -i 's/^#GSSAPIAuthentication.*$/GSSAPIAuthentication no/' ${IMAGE_ROOTFS}/etc/ssh/sshd_config
 	# Don't allow root login over ssh
-	sed -i 's/^PermitRootLogin.*$/PermitRootLogin no/' ${IMAGE_ROOTFS}/etc/ssh/sshd_config
+	sed -i 's/^#PermitRootLogin.*$/PermitRootLogin no/' ${IMAGE_ROOTFS}/etc/ssh/sshd_config
 }
 
 ROOTFS_POSTPROCESS_COMMAND += " fixup_sshd;"
