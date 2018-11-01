@@ -24,6 +24,8 @@ do_configure () {
 }
 
 do_compile() {
+    ls -lr ${STAGING_KERNEL_DIR}
+
     cd ${S}
     oe_runmake all modules
 }
