@@ -8,7 +8,7 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=59530bdf33659b29e73d4adb9f9f6552"
 S = "${WORKDIR}/git"
 
 SRCBRANCH = "stable-1.5-yocto"
-SRCREV = "0eae32234609e32cb7efffcfe8f04be771409db3"
+SRCREV = "b00d7e6b1c037dd4e6b9eb6c1e6737c88f6b6131"
 ETH_SRC ?= "git://github.com/JDSquared/etherlabmaster.git;protocol=https"
 SRC_URI = "${ETH_SRC};branch=${SRCBRANCH}"
 
