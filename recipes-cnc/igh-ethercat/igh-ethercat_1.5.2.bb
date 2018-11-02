@@ -27,3 +27,7 @@ do_compile() {
     cd ${S}
     oe_runmake all modules
 }
+
+do_install() {
+    
+}
