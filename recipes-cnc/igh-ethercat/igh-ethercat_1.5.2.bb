@@ -37,27 +37,13 @@ do_configure () {
 }
 
 do_compile() {
+    mkdir -p ${TMPINST} || true
     cd ${S}
     oe_runmake CC="${KERNEL_CC}" LD="${KERNEL_LD}" \
 		   AR="${KERNEL_AR}" \
 		   KBUILD_EXTRA_SYMBOLS="${KBUILD_EXTRA_SYMBOLS}" \
            modules
-
-    # Jiggle the cord since the drivers and the user program link against same file
-    oe_runmake clean
-    oe_runmake all
-}
-
-do_install() {
-    cd ${S}
-    mkdir -p ${TMPINST} || true
-
-    # Install the modules in the split kernel directory
-    oe_runmake DEPMOD=echo MODLIB="${D}${nonarch_base_libdir}/modules/{KERNEL_VERSION}" \
-            O="${STAGING_KERNEL_BUILDDIR}" \
-            DESTDIR=${TMPINST} \
-            modules_install install
-    
+           
 	if [ ! -e "${B}/${MODULES_MODULE_SYMVERS_LOCATION}/Module.symvers" ] ; then
 		bbwarn "Module.symvers not found in ${B}/${MODULES_MODULE_SYMVERS_LOCATION}"
 		bbwarn "Please consider setting MODULES_MODULE_SYMVERS_LOCATION to a"
@@ -69,6 +55,24 @@ do_install() {
 		# clear them out to avoid confusion
 		sed -e 's:${B}/::g' -i ${D}${includedir}/${BPN}/Module.symvers
 	fi
+
+    # save the modules
+    oe_runmake DEPMOD=echo MODLIB="${D}${nonarch_base_libdir}/modules/{KERNEL_VERSION}" \
+            O="${STAGING_KERNEL_BUILDDIR}" \
+            DESTDIR=${TMPINST} \
+            modules_install
+
+    # Jiggle the cord since the drivers and the user program link against same file
+    oe_runmake clean
+    oe_runmake all
+
+    # Install the userspace stuff in the split kernel directory
+    oe_runmake DESTDIR=${TMPINST} install
+}
+
+do_install() {
+    cd ${S}
+
 }
 
 KERNEL_MODULES_META_PACKAGE = "${PN}"
