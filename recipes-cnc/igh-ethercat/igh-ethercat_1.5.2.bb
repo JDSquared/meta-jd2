@@ -19,7 +19,7 @@ SRC_URI = "${ETH_SRC};branch=${SRCBRANCH} \
             file://0060_systemd_unit.patch \
 "
 
-inherit autotools pkgconfig module-base
+inherit autotools pkgconfig module-base kernel-module-split systemd
 
 EXTRA_OECONF = " --with-linux-dir=${WORKDIR}/linux_combined --prefix=/usr --sysconfdir=/etc --localstatedir=/var --disable-8139too --disable-e100 --disable-e1000 --disable-e1000e --disable-r8169 --enable-generic"
 
@@ -44,5 +44,31 @@ do_compile() {
 }
 
 do_install() {
+    # Install the modules in the split kernel directory
+    oe_runmake DEPMOD=echo MODLIB="${D}${nonarch_base_libdir}/modules/{KERNEL_VERSION}" \
+            CC="${KERNEL_CC}" LD="${KERNEL_LD}" \
+            O="${STAGING_KERNEL_BUILDDIR}"
+            modules_install    
+    
+	if [ ! -e "${B}/${MODULES_MODULE_SYMVERS_LOCATION}/Module.symvers" ] ; then
+		bbwarn "Module.symvers not found in ${B}/${MODULES_MODULE_SYMVERS_LOCATION}"
+		bbwarn "Please consider setting MODULES_MODULE_SYMVERS_LOCATION to a"
+		bbwarn "directory below B to get correct inter-module dependencies"
+	else
+		install -Dm0644 "${B}/${MODULES_MODULE_SYMVERS_LOCATION}"/Module.symvers ${D}${includedir}/${BPN}/Module.symvers
+		# Module.symvers contains absolute path to the build directory.
+		# While it doesn't actually seem to matter which path is specified,
+		# clear them out to avoid confusion
+		sed -e 's:${B}/::g' -i ${D}${includedir}/${BPN}/Module.symvers
+	fi
 
+    # Install the other programs
+    mkdir -p ${S}/.installed
+    oe_runmake O=${S}/.installed install
+    #rm -rf ${S}/.installed || true
 }
+
+KERNEL_MODULES_META_PACKAGE = "${PN}"
+
+FILES_${PN} += " ethercat.conf \  
+"
