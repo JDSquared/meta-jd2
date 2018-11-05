@@ -43,4 +43,4 @@ do_merge_delta_config() {
 }
 addtask merge_delta_config before do_preconfigure after do_patch
 
-COMPATIBLE_MACHINE = "(imx7-jd2-ethcb-var-som)"
+COMPATIBLE_MACHINE = "(mx7)"
