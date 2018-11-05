@@ -25,6 +25,7 @@ EXTRA_OECONF = " --with-linux-dir=${WORKDIR}/linux_combined --prefix=/usr --sysc
 
 do_configure[depends] += "virtual/kernel:do_compile_kernelmodules"
 do_configure () {
+    unset CFLAGS CPPFLAGS CXXFLAGS LDFLAGS
     # Make a combined linux src directory for this package to compile.
     # It's slow and heavy, but this is the easiest way to get it to work for now.
     mkdir ${WORKDIR}/linux_combined || true
@@ -39,11 +40,13 @@ do_configure () {
 }
 
 do_compile() {
+    unset CFLAGS CPPFLAGS CXXFLAGS LDFLAGS
     cd ${S}
-    oe_runmake V=1 all modules
+    oe_runmake all modules
 }
 
 do_install() {
+    unset CFLAGS CPPFLAGS CXXFLAGS LDFLAGS
     cd ${S}
     mkdir -p ${TMPINST} || true
 
