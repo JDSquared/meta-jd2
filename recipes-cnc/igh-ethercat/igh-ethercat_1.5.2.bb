@@ -20,7 +20,7 @@ SRC_URI = "${ETH_SRC};branch=${SRCBRANCH} \
             file://99-ethercat.rules \
 "
 
-inherit autotools module systemd
+inherit autotools module-base systemd
 
 do_configure[depends] += "virtual/kernel:do_compile_kernelmodules"
 do_configure () {
@@ -51,7 +51,7 @@ do_install() {
     install -m 0644 ${S}/include/ectty.h ${D}${includedir}/
     
     # Install the libraries
-	oe_libinstall -a -so libethercat ${D}${libdir}
+	oe_libinstall -so libethercat ${D}${libdir}
 
     # Install the user edited config file
     install -d ${D}${sysconfdir}/
