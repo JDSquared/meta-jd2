@@ -28,10 +28,9 @@ do_configure () {
     # Make a combined linux src directory for this package to compile.
     # It's slow and heavy, but this is the easiest way to get it to work for now.
     mkdir ${WORKDIR}/linux_combined || true
-    rm -rf ${WORKDIR}/linux_combined/*
 
-    cp -r ${STAGING_KERNEL_DIR}/* ${WORKDIR}/linux_combined/
-    cp -r ${STAGING_BUILD_DIR}/* ${WORKDIR}/linux_combined/
+    rsync -ah --progress ${STAGING_KERNEL_DIR}/ ${WORKDIR}/linux_combined/
+    rsync -ah --progress ${STAGING_KERNEL_BUILDDIR}/ ${WORKDIR}/linux_combined/
 
     cd ${S}
     ./bootstrap
