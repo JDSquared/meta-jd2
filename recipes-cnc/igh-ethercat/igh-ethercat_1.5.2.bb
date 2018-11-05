@@ -40,8 +40,6 @@ do_configure () {
 
 do_compile() {
     cd ${S}
-
-    oe_runmake V=1 clean
     oe_runmake V=1 all modules
 }
 
