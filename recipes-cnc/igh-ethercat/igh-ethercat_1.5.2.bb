@@ -40,7 +40,8 @@ do_configure () {
 
 do_compile() {
     cd ${S}
-    echo cxx_flags: ${CXX_FLAGS}
+
+    oe_runmake V=1 clean
     oe_runmake V=1 all modules
 }
 
