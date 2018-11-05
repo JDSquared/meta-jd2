@@ -41,11 +41,14 @@ do_compile() {
     oe_runmake CC="${KERNEL_CC}" LD="${KERNEL_LD}" \
 		   AR="${KERNEL_AR}" \
 		   KBUILD_EXTRA_SYMBOLS="${KBUILD_EXTRA_SYMBOLS}" \
-           all modules
+           modules
+
+    # Jiggle the cord since the drivers and the user program link against same file
+    oe_runmake clean
+    oe_runmake all
 }
 
 do_install() {
-    unset CFLAGS CPPFLAGS CXXFLAGS LDFLAGS
     cd ${S}
     mkdir -p ${TMPINST} || true
 
