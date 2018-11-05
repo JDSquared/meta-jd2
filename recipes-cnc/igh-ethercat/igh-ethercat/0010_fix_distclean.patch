@@ -1,0 +1,125 @@
+0010_fix_distclean.patch by  <cncmill@cncmill>
+
+fix make distclean problem
+
+Index: etherlabmaster/devices/e1000/Makefile.am
+===================================================================
+--- etherlabmaster.orig/devices/e1000/Makefile.am	2018-04-19 12:02:53.382138335 -0500
++++ etherlabmaster/devices/e1000/Makefile.am	2018-04-19 12:02:53.374138395 -0500
+@@ -350,6 +350,6 @@
+ 		INSTALL_MOD_DIR="$(INSTALL_MOD_DIR)" modules_install
+ 
+ clean-local:
+-	$(MAKE) -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
++	$(MAKE) -i -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
+ 
+ #------------------------------------------------------------------------------
+Index: etherlabmaster/devices/e1000e/Makefile.am
+===================================================================
+--- etherlabmaster.orig/devices/e1000e/Makefile.am	2018-04-19 12:02:53.382138335 -0500
++++ etherlabmaster/devices/e1000e/Makefile.am	2018-04-19 12:02:53.374138395 -0500
+@@ -428,6 +428,6 @@
+ 		INSTALL_MOD_DIR="$(INSTALL_MOD_DIR)" modules_install
+ 
+ clean-local:
+-	$(MAKE) -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
++	$(MAKE) -i -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
+ 
+ #------------------------------------------------------------------------------
+Index: etherlabmaster/devices/Makefile.am
+===================================================================
+--- etherlabmaster.orig/devices/Makefile.am	2018-04-19 12:02:53.382138335 -0500
++++ etherlabmaster/devices/Makefile.am	2018-04-19 12:02:53.374138395 -0500
+@@ -188,6 +188,6 @@
+ 		INSTALL_MOD_DIR="$(INSTALL_MOD_DIR)" modules_install
+ 
+ clean-local:
+-	$(MAKE) -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
++	$(MAKE) -i -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
+ 
+ #------------------------------------------------------------------------------
+Index: etherlabmaster/examples/dc_rtai/Makefile.am
+===================================================================
+--- etherlabmaster.orig/examples/dc_rtai/Makefile.am	2018-04-19 12:02:53.382138335 -0500
++++ etherlabmaster/examples/dc_rtai/Makefile.am	2018-04-19 12:02:53.374138395 -0500
+@@ -44,6 +44,6 @@
+ 		INSTALL_MOD_DIR="$(INSTALL_MOD_DIR)" modules_install
+ 
+ clean-local:
+-	$(MAKE) -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
++	$(MAKE) -i -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
+ 
+ #------------------------------------------------------------------------------
+Index: etherlabmaster/examples/mini/Makefile.am
+===================================================================
+--- etherlabmaster.orig/examples/mini/Makefile.am	2018-04-19 12:02:53.382138335 -0500
++++ etherlabmaster/examples/mini/Makefile.am	2018-04-19 12:02:53.378138365 -0500
+@@ -46,6 +46,6 @@
+ 		INSTALL_MOD_DIR="$(INSTALL_MOD_DIR)" modules_install
+ 
+ clean-local:
+-	$(MAKE) -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
++	$(MAKE) -i -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
+ 
+ #------------------------------------------------------------------------------
+Index: etherlabmaster/examples/rtai/Makefile.am
+===================================================================
+--- etherlabmaster.orig/examples/rtai/Makefile.am	2018-04-19 12:02:53.382138335 -0500
++++ etherlabmaster/examples/rtai/Makefile.am	2018-04-19 12:02:53.378138365 -0500
+@@ -44,6 +44,6 @@
+ 		INSTALL_MOD_DIR="$(INSTALL_MOD_DIR)" modules_install
+ 
+ clean-local:
+-	$(MAKE) -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
++	$(MAKE) -i -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
+ 
+ #------------------------------------------------------------------------------
+Index: etherlabmaster/examples/tty/Makefile.am
+===================================================================
+--- etherlabmaster.orig/examples/tty/Makefile.am	2018-04-19 12:02:53.382138335 -0500
++++ etherlabmaster/examples/tty/Makefile.am	2018-04-19 12:02:53.378138365 -0500
+@@ -50,6 +50,6 @@
+ 		INSTALL_MOD_DIR="$(INSTALL_MOD_DIR)" modules_install
+ 
+ clean-local:
+-	$(MAKE) -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
++	$(MAKE) -i -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
+ 
+ #------------------------------------------------------------------------------
+Index: etherlabmaster/Makefile.am
+===================================================================
+--- etherlabmaster.orig/Makefile.am	2018-04-19 12:02:53.382138335 -0500
++++ etherlabmaster/Makefile.am	2018-04-19 12:02:53.378138365 -0500
+@@ -88,7 +88,7 @@
+ 		INSTALL_MOD_DIR="$(INSTALL_MOD_DIR)" modules_install
+ 
+ clean-local:
+-	$(MAKE) -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
++	$(MAKE) -i -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
+ 
+ mydist:
+ 	hg log --style=changelog $(srcdir) > ChangeLog
+Index: etherlabmaster/master/Makefile.am
+===================================================================
+--- etherlabmaster.orig/master/Makefile.am	2018-04-19 12:02:53.382138335 -0500
++++ etherlabmaster/master/Makefile.am	2018-04-19 12:02:53.378138365 -0500
+@@ -88,6 +88,6 @@
+ 		INSTALL_MOD_DIR="$(INSTALL_MOD_DIR)" modules_install
+ 
+ clean-local:
+-	$(MAKE) -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
++	$(MAKE) -i -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
+ 
+ #------------------------------------------------------------------------------
+Index: etherlabmaster/tty/Makefile.am
+===================================================================
+--- etherlabmaster.orig/tty/Makefile.am	2018-04-19 12:02:53.382138335 -0500
++++ etherlabmaster/tty/Makefile.am	2018-04-19 12:02:53.378138365 -0500
+@@ -46,6 +46,6 @@
+ 		INSTALL_MOD_DIR="$(INSTALL_MOD_DIR)" modules_install
+ 
+ clean-local:
+-	$(MAKE) -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
++	$(MAKE) -i -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
+ 
+ #------------------------------------------------------------------------------
