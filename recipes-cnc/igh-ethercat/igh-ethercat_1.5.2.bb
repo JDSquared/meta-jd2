@@ -40,22 +40,15 @@ do_configure () {
 
 do_compile() {
     cd ${S}
-    oe_runmake KERNEL_PATH=${STAGING_KERNEL_DIR}   \
-		   KERNEL_VERSION=${KERNEL_VERSION}    \
-		   CC="${KERNEL_CC}" LD="${KERNEL_LD}" \
-		   AR="${KERNEL_AR}" \
-           O=${STAGING_KERNEL_BUILDDIR} \
-		   KBUILD_EXTRA_SYMBOLS="${KBUILD_EXTRA_SYMBOLS}" \
-           all modules
+    oe_runmake all modules
 }
 
 do_install() {
     cd ${S}
     # Install the modules in the split kernel directory
     oe_runmake DEPMOD=echo MODLIB="${D}${nonarch_base_libdir}/modules/{KERNEL_VERSION}" \
-            CC="${KERNEL_CC}" LD="${KERNEL_LD}" \
-            O="${STAGING_KERNEL_BUILDDIR}"
-            modules_install    
+            O="${STAGING_KERNEL_BUILDDIR}" \
+            modules_install
     
 	if [ ! -e "${B}/${MODULES_MODULE_SYMVERS_LOCATION}/Module.symvers" ] ; then
 		bbwarn "Module.symvers not found in ${B}/${MODULES_MODULE_SYMVERS_LOCATION}"
