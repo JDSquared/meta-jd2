@@ -15,7 +15,6 @@ SRC_URI = "${ETH_SRC};branch=${SRCBRANCH} \
             file://0020_fix_read_pdo_count.patch \
             file://0030_relax_al_state_change_timeout.patch \
             file://0040_RTAI_module_cflags.patch \
-            file://0050_install_headers.patch \
             file://0060_systemd_unit.patch \
 "
 
