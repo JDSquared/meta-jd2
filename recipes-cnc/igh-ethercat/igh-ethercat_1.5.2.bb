@@ -41,7 +41,7 @@ do_configure () {
 do_compile() {
     cd ${S}
     echo cxx_flags: ${CXX_FLAGS}
-    oe_runmake all modules
+    oe_runmake V=1 all modules
 }
 
 do_install() {
