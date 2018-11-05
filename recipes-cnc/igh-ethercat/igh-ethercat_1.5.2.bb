@@ -21,7 +21,7 @@ SRC_URI = "${ETH_SRC};branch=${SRCBRANCH} \
 
 inherit autotools pkgconfig module systemd
 
-EXTRA_OECONF = " --with-linux-dir=${WORKDIR}/linux_combined --prefix=${TMPINST}/usr --sysconfdir=${TMPINST}/etc --localstatedir=${TMPINST}/var --disable-8139too --disable-e100 --disable-e1000 --disable-e1000e --disable-r8169 --enable-generic"
+EXTRA_OECONF = " --with-linux-dir=${WORKDIR}/linux_combined --prefix=/usr --sysconfdir=/etc --localstatedir=/var --disable-8139too --disable-e100 --disable-e1000 --disable-e1000e --disable-r8169 --enable-generic"
 
 do_configure[depends] += "virtual/kernel:do_compile_kernelmodules"
 do_configure () {
@@ -47,9 +47,12 @@ do_compile() {
 
 do_install() {
     cd ${S}
+    mkdir -p ${TMPINST} || true
+
     # Install the modules in the split kernel directory
     oe_runmake DEPMOD=echo MODLIB="${D}${nonarch_base_libdir}/modules/{KERNEL_VERSION}" \
             O="${STAGING_KERNEL_BUILDDIR}" \
+            DESTDIR=${TMPINST} \
             modules_install install
     
 	if [ ! -e "${B}/${MODULES_MODULE_SYMVERS_LOCATION}/Module.symvers" ] ; then
@@ -63,8 +66,6 @@ do_install() {
 		# clear them out to avoid confusion
 		sed -e 's:${B}/::g' -i ${D}${includedir}/${BPN}/Module.symvers
 	fi
-
-    # Copy over the files to the real target directories
 }
 
 KERNEL_MODULES_META_PACKAGE = "${PN}"
