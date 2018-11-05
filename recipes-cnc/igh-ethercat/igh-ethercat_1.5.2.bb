@@ -6,7 +6,6 @@ LICENSE = "GPLv2"
 LIC_FILES_CHKSUM = "file://COPYING;md5=59530bdf33659b29e73d4adb9f9f6552"
 
 S = "${WORKDIR}/git"
-TMPINST = "${WORKDIR}/tmpinstall"
 
 SRCBRANCH = "stable-1.5"
 SRCREV = "f1942fdb564edec9a067c7e0c487f2d53b5f548b"
@@ -17,6 +16,8 @@ SRC_URI = "${ETH_SRC};branch=${SRCBRANCH} \
             file://0030_relax_al_state_change_timeout.patch \
             file://0040_RTAI_module_cflags.patch \
             file://0060_systemd_unit.patch \
+            file://update-ethercat-config \
+            file://99-ethercat-rules \
 "
 
 inherit autotools module systemd
@@ -33,49 +34,60 @@ do_configure () {
 
     cd ${S}
     ./bootstrap
-    oe_runconf --with-linux-dir=${WORKDIR}/linux_combined --prefix=/usr --sysconfdir=/etc --localstatedir=/var --disable-8139too --disable-e100 --disable-e1000 --disable-e1000e --disable-r8169 --enable-generic
+    oe_runconf --with-linux-dir=${WORKDIR}/linux_combined --prefix=${prefix} --sysconfdir=${sysconfdir} --localstatedir=${localstatedir} --disable-8139too --disable-e100 --disable-e1000 --disable-e1000e --disable-r8169 --enable-generic --enable-hrtimer --enable-sii-assign
 }
 
-do_compile() {
-    mkdir -p ${TMPINST} || true
+do_compile() {    
     cd ${S}
-    oe_runmake CC="${KERNEL_CC}" LD="${KERNEL_LD}" \
-		   AR="${KERNEL_AR}" \
-		   KBUILD_EXTRA_SYMBOLS="${KBUILD_EXTRA_SYMBOLS}" \
-           modules
-           
-	if [ ! -e "${B}/${MODULES_MODULE_SYMVERS_LOCATION}/Module.symvers" ] ; then
-		bbwarn "Module.symvers not found in ${B}/${MODULES_MODULE_SYMVERS_LOCATION}"
-		bbwarn "Please consider setting MODULES_MODULE_SYMVERS_LOCATION to a"
-		bbwarn "directory below B to get correct inter-module dependencies"
-	else
-		install -Dm0644 "${B}/${MODULES_MODULE_SYMVERS_LOCATION}"/Module.symvers ${D}${includedir}/${BPN}/Module.symvers
-		# Module.symvers contains absolute path to the build directory.
-		# While it doesn't actually seem to matter which path is specified,
-		# clear them out to avoid confusion
-		sed -e 's:${B}/::g' -i ${D}${includedir}/${BPN}/Module.symvers
-	fi
-
-    # save the modules
-    oe_runmake DEPMOD=echo MODLIB="${D}${nonarch_base_libdir}/modules/{KERNEL_VERSION}" \
-            O="${STAGING_KERNEL_BUILDDIR}" \
-            DESTDIR=${TMPINST} \
-            modules_install
-
-    # Jiggle the cord since the drivers and the user program link against same file
-    oe_runmake clean
     oe_runmake all
-
-    # Install the userspace stuff in the split kernel directory
-    oe_runmake DESTDIR=${TMPINST} install
 }
 
 do_install() {
     cd ${S}
 
+    # Install the development headers
+    install -d ${D}${includedir}
+    install -m 0644 ${S}/include/ecrt.h ${D}${includedir}/
+    install -m 0644 ${S}/include/ectty.h ${D}${includedir}/
+    
+    # Install the libraries
+	oe_libinstall -a -so libethercat ${D}${libdir}
+
+    # Install the user edited config file
+    install -d ${D}${sysconfdir}/
+    install -m 0644 ${S}/script/etc/ethercat.conf ${D}${sysconfdir}
+
+    # Install systemd files
+    install -d ${D}${sbindir}
+    install -m 0755 ${S}/script/ethercatctl ${D}${sbindir}/
+    install -d ${D}${systemd_system_unitdir}
+    install -m 0755 ${S}/script/ethercat.service ${D}${systemd_system_unitdir}/
+
+    # Install the ethercat program
+    install -d ${D}${bindir}
+    install -m 0755 ${S}/tool/ethercat ${D}${bindir}/
+
+    # Install extras
+    install -d ${D}${sbindir}
+    install -m 0755 ${WORKDIR}/update-ethercat-config ${D}${sbindir}/
+
+    install -d ${D}${sysconfdir}/udev/rules.d
+    install -m 0644 ${WORKDIR}/99-ethercat.rules ${D}${sysconfdir}/udev/rules.d/
 }
 
 KERNEL_MODULES_META_PACKAGE = "${PN}"
 
-FILES_${PN} += " ethercat.conf \  
+FILES_${PN} += " \
+                ${sysconfdir}/ethercat.conf \
+                ${sbindir}/ethercatctl \
+                ${bindir}/ethercat \
+                ${systemd_system_unitdir}/ethercat.service \
+                ${sbindir}/update-ethercat-config \
+                ${sysconfdir}/udev/rules.d/99-ethercat.rules \
+                ${libdir}/libethercat* \
+"
+
+FILES_${PN}-dev += " \
+    ${includedir}/ecrt.h \
+    ${includedir}/ectty.h \
 "
