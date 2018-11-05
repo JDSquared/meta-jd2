@@ -19,7 +19,7 @@ SRC_URI = "${ETH_SRC};branch=${SRCBRANCH} \
             file://0060_systemd_unit.patch \
 "
 
-inherit autotools pkgconfig module-base kernel-module-split systemd
+inherit autotools pkgconfig module systemd
 
 EXTRA_OECONF = " --with-linux-dir=${WORKDIR}/linux_combined --prefix=/usr --sysconfdir=/etc --localstatedir=/var --disable-8139too --disable-e100 --disable-e1000 --disable-e1000e --disable-r8169 --enable-generic"
 
