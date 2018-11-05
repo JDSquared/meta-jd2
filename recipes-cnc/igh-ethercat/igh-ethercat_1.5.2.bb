@@ -17,7 +17,7 @@ SRC_URI = "${ETH_SRC};branch=${SRCBRANCH} \
             file://0040_RTAI_module_cflags.patch \
             file://0060_systemd_unit.patch \
             file://update-ethercat-config \
-            file://99-ethercat-rules \
+            file://99-ethercat.rules \
 "
 
 inherit autotools module systemd
