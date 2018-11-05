@@ -19,9 +19,7 @@ SRC_URI = "${ETH_SRC};branch=${SRCBRANCH} \
             file://0060_systemd_unit.patch \
 "
 
-inherit autotools module systemd
-
-EXTRA_OECONF = " --with-linux-dir=${WORKDIR}/linux_combined --prefix=/usr --sysconfdir=/etc --localstatedir=/var --disable-8139too --disable-e100 --disable-e1000 --disable-e1000e --disable-r8169 --enable-generic"
+inherit module systemd
 
 do_configure[depends] += "virtual/kernel:do_compile_kernelmodules"
 do_configure () {
@@ -36,13 +34,16 @@ do_configure () {
 
     cd ${S}
     ./bootstrap
-    oe_runconf
+    ./configure --with-linux-dir=${WORKDIR}/linux_combined --prefix=/usr --sysconfdir=/etc --localstatedir=/var --disable-8139too --disable-e100 --disable-e1000 --disable-e1000e --disable-r8169 --enable-generic
 }
 
 do_compile() {
     unset CFLAGS CPPFLAGS CXXFLAGS LDFLAGS
     cd ${S}
-    oe_runmake all modules
+    oe_runmake CC="${KERNEL_CC}" LD="${KERNEL_LD}" \
+		   AR="${KERNEL_AR}" \
+		   KBUILD_EXTRA_SYMBOLS="${KBUILD_EXTRA_SYMBOLS}" \
+           all modules
 }
 
 do_install() {
