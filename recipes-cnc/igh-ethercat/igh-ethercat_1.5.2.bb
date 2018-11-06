@@ -20,7 +20,7 @@ SRC_URI = "${ETH_SRC};branch=${SRCBRANCH} \
             file://99-ethercat.rules \
 "
 
-inherit autotools module-base kernel-module-split pkgconfig systemd
+inherit autotools systemd
 
 do_configure[depends] += "virtual/kernel:do_compile_kernelmodules"
 do_configure () {
@@ -105,3 +105,5 @@ FILES_${PN}-dev += " \
     ${includedir}/ecrt.h \
     ${includedir}/ectty.h \
 "
+
+PACKAGE_ARCH = "${MACHINE_ARCH}"
