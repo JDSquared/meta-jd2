@@ -90,8 +90,6 @@ do_install() {
     #oe_runmake DEPMOD=echo MODLIB="${D}${nonarch_base_libdir}/modules/${KERNEL_VERSION}" modules_install
 }
 
-KERNEL_MODULES_META_PACKAGE = "${PN}"
-
 FILES_${PN} += " \
                 ${sysconfdir}/ethercat.conf \
                 ${sbindir}/ethercatctl \
