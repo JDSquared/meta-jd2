@@ -48,7 +48,6 @@ do_configure () {
 }
 
 do_compile() {
-    unset KBUILD_OUTPUT
     cd ${S}
 
     # Compile the ethercat tool program
@@ -59,7 +58,7 @@ do_compile() {
     # merge errors if we don't touch this.
 #    touch ${S}/master/soe_errors.c
 
-#    oe_runmake all modules
+    oe_runmake modules
 }
 
 do_install() {
