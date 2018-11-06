@@ -44,7 +44,7 @@ do_compile() {
     cd ${S}
 
     # Compile the ethercat tool program
-    make modules
+    oe_runmake modules
 
     # Now compile the modules. Recompile soe_errors since it now has
     # to be compiled like the kernel modules and we get architecture
