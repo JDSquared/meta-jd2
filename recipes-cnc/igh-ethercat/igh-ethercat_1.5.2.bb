@@ -40,18 +40,18 @@ do_configure () {
      --disable-r8169 --enable-generic --enable-hrtimer --enable-sii-assign
 }
 
-do_compile() {    
+do_compile() {
     cd ${S}
 
     # Compile the ethercat tool program
-    oe_runmake all
+    oe_runmake modules
 
     # Now compile the modules. Recompile soe_errors since it now has
     # to be compiled like the kernel modules and we get architecture
     # merge errors if we don't touch this.
     touch ${S}/master/soe_errors.c
 
-    #oe_runmake modules
+    #oe_runmake all
 }
 
 do_install() {
