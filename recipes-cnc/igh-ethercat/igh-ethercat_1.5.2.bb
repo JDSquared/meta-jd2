@@ -48,6 +48,7 @@ do_configure () {
 }
 
 do_compile() {
+    unset KBUILD_OUTPUT KERNEL_SOURCE KERNEL_PATH
     cd ${S}
 
     # Compile the ethercat tool program
