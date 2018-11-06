@@ -20,10 +20,7 @@ SRC_URI = "${ETH_SRC};branch=${SRCBRANCH} \
             file://99-ethercat.rules \
 "
 
-inherit autotools module systemd useradd
-
-USERADD_PACKAGES = "${PN}"
-GROUPADD_PARAM_${PN} = "ethercat"
+inherit autotools module-base kernel-module-split pkgconfig systemd
 
 do_configure[depends] += "virtual/kernel:do_compile_kernelmodules"
 do_configure () {
