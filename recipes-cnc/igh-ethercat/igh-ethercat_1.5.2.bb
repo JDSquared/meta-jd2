@@ -59,7 +59,7 @@ do_compile() {
     # merge errors if we don't touch this.
 #    touch ${S}/master/soe_errors.c
 
-     oe_runmake modules
+     oe_runmake all modules
 }
 
 do_install() {
