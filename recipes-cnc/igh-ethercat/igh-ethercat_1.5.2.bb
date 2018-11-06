@@ -20,7 +20,7 @@ SRC_URI = "${ETH_SRC};branch=${SRCBRANCH} \
             file://99-ethercat.rules \
 "
 
-inherit autotools systemd module
+inherit autotools systemd module-base
 
 EXTRA_OECONF = "--with-linux-dir=${WORKDIR}/linux_combined --prefix=${prefix} \
      --sysconfdir=${sysconfdir} --localstatedir=${localstatedir} \
