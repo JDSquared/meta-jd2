@@ -6,6 +6,7 @@ LICENSE = "GPLv2"
 LIC_FILES_CHKSUM = "file://COPYING;md5=59530bdf33659b29e73d4adb9f9f6552"
 
 S = "${WORKDIR}/git"
+COMBINED_SRC = "${WORKDIR}/linux_combined"
 
 SRCBRANCH = "stable-1.5"
 SRCREV = "f1942fdb564edec9a067c7e0c487f2d53b5f548b"
@@ -25,7 +26,7 @@ inherit autotools systemd module-base useradd
 USERADD_PACKAGES = "${PN}"
 GROUPADD_PARAM_${PN} = "ethercat"
 
-EXTRA_OECONF = "--with-linux-dir=${WORKDIR}/linux_combined --prefix=${prefix} \
+EXTRA_OECONF = "--with-linux-dir=${COMBINED_SRC} --prefix=${prefix} \
      --sysconfdir=${sysconfdir} --localstatedir=${localstatedir} \
      --disable-8139too --disable-e100 --disable-e1000 --disable-e1000e \
      --disable-r8169 --enable-generic --enable-hrtimer --enable-sii-assign \
@@ -61,7 +62,7 @@ do_compile() {
     # merge errors if we don't touch this.
     touch ${S}/master/soe_errors.c
 
-#     oe_runmake modules
+    oe_runmake -C ${COMBINED_SRC} KERNEL_SOURCE=${COMBINED_SRC} KERNEL_PATH=${COMBINED_SRC} modules
 }
 
 do_install() {
