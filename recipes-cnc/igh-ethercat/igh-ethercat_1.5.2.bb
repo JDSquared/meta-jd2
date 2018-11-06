@@ -43,7 +43,7 @@ do_configure () {
 
     cp -a ${STAGING_KERNEL_DIR}/. ${WORKDIR}/linux_combined/
     cp -a ${STAGING_KERNEL_BUILDDIR}/. ${WORKDIR}/linux_combined/
-    unlink ${WORKDIR}/linux_combined/source 
+    rm ${WORKDIR}/linux_combined/source 
 
     cd ${S}
     ./bootstrap
