@@ -20,7 +20,11 @@ SRC_URI = "${ETH_SRC};branch=${SRCBRANCH} \
             file://99-ethercat.rules \
 "
 
-inherit autotools systemd module
+inherit autotools systemd module useradd
+
+USERADD_PACKAGES = "${PN}"
+GROUPADD_PARAM_${PN} = "ethercat"
+
 EXTRA_OECONF = "--with-linux-dir=${WORKDIR}/linux_combined --prefix=${prefix} \
      --sysconfdir=${sysconfdir} --localstatedir=${localstatedir} \
      --disable-8139too --disable-e100 --disable-e1000 --disable-e1000e \
