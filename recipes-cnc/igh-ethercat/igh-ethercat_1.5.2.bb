@@ -20,7 +20,7 @@ SRC_URI = "${ETH_SRC};branch=${SRCBRANCH} \
             file://99-ethercat.rules \
 "
 
-inherit autotools module-base systemd
+inherit autotools module systemd
 
 do_configure[depends] += "virtual/kernel:do_compile_kernelmodules"
 do_configure () {
@@ -34,12 +34,23 @@ do_configure () {
 
     cd ${S}
     ./bootstrap
-    oe_runconf --with-linux-dir=${WORKDIR}/linux_combined --prefix=${prefix} --sysconfdir=${sysconfdir} --localstatedir=${localstatedir} --disable-8139too --disable-e100 --disable-e1000 --disable-e1000e --disable-r8169 --enable-generic --enable-hrtimer --enable-sii-assign
+    oe_runconf --with-linux-dir=${WORKDIR}/linux_combined --prefix=${prefix} \
+     --sysconfdir=${sysconfdir} --localstatedir=${localstatedir} \
+     --disable-8139too --disable-e100 --disable-e1000 --disable-e1000e \
+     --disable-r8169 --enable-generic --enable-hrtimer --enable-sii-assign \
 }
 
 do_compile() {    
     cd ${S}
+    # Compile the ethercat tool program
     oe_runmake all
+
+    # Now compile the modules. Recompile soe_errors since it now has
+    # to be compiled like the kernel modules and we get architecture
+    # merge errors if we don't touch this.
+    touch ${S}/master/soe_errors.c
+
+    oe_runmake modules
 }
 
 do_install() {
@@ -55,7 +66,7 @@ do_install() {
 
     # Install the user edited config file
     install -d ${D}${sysconfdir}/
-    install -m 0644 ${S}/script/etc/ethercat.conf ${D}${sysconfdir}
+    install -m 0644 ${S}/script/ethercat.conf ${D}${sysconfdir}
 
     # Install systemd files
     install -d ${D}${sbindir}

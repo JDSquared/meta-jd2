@@ -33,6 +33,7 @@ EXTRA_USERS_PARAMS = " \
 	useradd ${DEFAULT_USER}; \
 	usermod -P ${DEFAULT_PASS} ${DEFAULT_USER}; \
 	usermod -a -G sudo ${DEFAULT_USER}; \
+	usermod -a -G ethercat ${DEFAULT_USER}; \
 "
 
 # Enable sudo group, and give default user passwordless sudo
