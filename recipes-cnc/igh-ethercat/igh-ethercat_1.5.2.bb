@@ -42,6 +42,7 @@ do_configure () {
 
 do_compile() {    
     cd ${S}
+
     # Compile the ethercat tool program
     oe_runmake all
 
@@ -50,7 +51,7 @@ do_compile() {
     # merge errors if we don't touch this.
     touch ${S}/master/soe_errors.c
 
-    oe_runmake modules
+    #oe_runmake modules
 }
 
 do_install() {
@@ -86,7 +87,7 @@ do_install() {
     install -m 0644 ${WORKDIR}/99-ethercat.rules ${D}${sysconfdir}/udev/rules.d/
 
     # Install modules
-    oe_runmake DEPMOD=echo MODLIB="${D}${nonarch_base_libdir}/modules/${KERNEL_VERSION}" modules_install
+    #oe_runmake DEPMOD=echo MODLIB="${D}${nonarch_base_libdir}/modules/${KERNEL_VERSION}" modules_install
 }
 
 KERNEL_MODULES_META_PACKAGE = "${PN}"
