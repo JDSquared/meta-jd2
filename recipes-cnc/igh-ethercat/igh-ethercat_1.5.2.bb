@@ -20,7 +20,7 @@ SRC_URI = "${ETH_SRC};branch=${SRCBRANCH} \
             file://99-ethercat.rules \
 "
 
-inherit autotools systemd module useradd
+inherit autotools systemd module-base useradd
 
 USERADD_PACKAGES = "${PN}"
 GROUPADD_PARAM_${PN} = "ethercat"
