@@ -43,9 +43,6 @@ do_configure () {
     cp -a ${STAGING_KERNEL_DIR}/. ${WORKDIR}/linux_combined/
     cp -a ${STAGING_KERNEL_BUILDDIR}/. ${WORKDIR}/linux_combined/
 
-    cd ${WORKDIR}/linux_combined
-    oe_runmake prepare
-
     cd ${S}
     ./bootstrap
     oe_runconf
@@ -61,7 +58,7 @@ do_compile() {
     # Now compile the modules. Recompile soe_errors since it now has
     # to be compiled like the kernel modules and we get architecture
     # merge errors if we don't touch this.
-#    touch ${S}/master/soe_errors.c
+    touch ${S}/master/soe_errors.c
 
 #     oe_runmake modules
 }
