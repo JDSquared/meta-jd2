@@ -22,6 +22,7 @@ SRC_URI = "${ETH_SRC};branch=${SRCBRANCH} \
 
 inherit autotools module systemd useradd
 
+USERADD_PACKAGES = "${PN}"
 GROUPADD_PARAM_${PN} = "ethercat"
 
 do_configure[depends] += "virtual/kernel:do_compile_kernelmodules"
