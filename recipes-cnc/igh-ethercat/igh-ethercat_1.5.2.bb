@@ -62,7 +62,7 @@ do_compile() {
     # merge errors if we don't touch this.
     touch ${S}/master/soe_errors.c
 
-    oe_runmake -C ${COMBINED_SRC} KERNEL_SOURCE=${COMBINED_SRC} KERNEL_PATH=${COMBINED_SRC} modules
+    oe_runmake -C ${COMBINED_SRC} KERNEL_SOURCE=${COMBINED_SRC} KERNEL_PATH=${COMBINED_SRC} M=${S} modules
 }
 
 do_install() {
