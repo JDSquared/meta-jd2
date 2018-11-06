@@ -84,6 +84,9 @@ do_install() {
 
     install -d ${D}${sysconfdir}/udev/rules.d
     install -m 0644 ${WORKDIR}/99-ethercat.rules ${D}${sysconfdir}/udev/rules.d/
+
+    # Install modules
+    oe_runmake DEPMOD=echo MODLIB="${D}${nonarch_base_libdir}/modules/${KERNEL_VERSION}" modules_install
 }
 
 KERNEL_MODULES_META_PACKAGE = "${PN}"
