@@ -20,7 +20,7 @@ SRC_URI = "${ETH_SRC};branch=${SRCBRANCH} \
             file://99-ethercat.rules \
 "
 
-inherit autotools module systemd
+inherit module systemd
 
 do_configure[depends] += "virtual/kernel:do_compile_kernelmodules"
 do_configure () {
@@ -34,7 +34,7 @@ do_configure () {
 
     cd ${S}
     ./bootstrap
-    oe_runconf --with-linux-dir=${WORKDIR}/linux_combined --prefix=${prefix} \
+    ./configure --with-linux-dir=${WORKDIR}/linux_combined --prefix=${prefix} \
      --sysconfdir=${sysconfdir} --localstatedir=${localstatedir} \
      --disable-8139too --disable-e100 --disable-e1000 --disable-e1000e \
      --disable-r8169 --enable-generic --enable-hrtimer --enable-sii-assign
@@ -44,7 +44,7 @@ do_compile() {
     cd ${S}
 
     # Compile the ethercat tool program
-    oe_runmake modules
+    make modules
 
     # Now compile the modules. Recompile soe_errors since it now has
     # to be compiled like the kernel modules and we get architecture
