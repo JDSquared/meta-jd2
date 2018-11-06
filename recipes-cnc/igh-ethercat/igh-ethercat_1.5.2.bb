@@ -33,6 +33,8 @@ EXTRA_OECONF = "--with-linux-dir=${WORKDIR}/linux_combined --prefix=${prefix} \
 
 do_configure[depends] += "virtual/kernel:do_compile_kernelmodules"
 do_configure () {
+    unset KBUILD_OUTPUT KERNEL_SOURCE KERNEL_PATH
+    
     # Make a combined linux src directory for this package to compile.
     # It's slow and heavy, but this is the easiest way to get it to work for now.
     mkdir ${WORKDIR}/linux_combined || true
@@ -50,6 +52,7 @@ do_configure () {
 }
 
 do_compile() {
+    unset KBUILD_OUTPUT KERNEL_SOURCE KERNEL_PATH
     cd ${S}
 
     # Compile the ethercat tool program
@@ -58,7 +61,7 @@ do_compile() {
     # Now compile the modules. Recompile soe_errors since it now has
     # to be compiled like the kernel modules and we get architecture
     # merge errors if we don't touch this.
-    touch ${S}/master/soe_errors.c
+#    touch ${S}/master/soe_errors.c
 
      oe_runmake modules
 }
