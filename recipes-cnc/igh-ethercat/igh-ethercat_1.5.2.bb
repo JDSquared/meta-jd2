@@ -37,7 +37,7 @@ do_configure () {
     oe_runconf --with-linux-dir=${WORKDIR}/linux_combined --prefix=${prefix} \
      --sysconfdir=${sysconfdir} --localstatedir=${localstatedir} \
      --disable-8139too --disable-e100 --disable-e1000 --disable-e1000e \
-     --disable-r8169 --enable-generic --enable-hrtimer --enable-sii-assign \
+     --disable-r8169 --enable-generic --enable-hrtimer --enable-sii-assign
 }
 
 do_compile() {    
