@@ -31,9 +31,7 @@ EXTRA_OECONF = "--with-linux-dir=${COMBINED_SRC} \
      --disable-r8169 --enable-generic --enable-hrtimer --enable-sii-assign \
 "
 
-do_configure () {
-    unset KBUILD_OUTPUT KERNEL_SOURCE KERNEL_PATH
-    
+do_configure () {  
     # Make a combined linux src directory for this package to compile.
     # It's slow and heavy, but this is the easiest way to get it to work for now.
     mkdir ${WORKDIR}/linux_combined || true
@@ -49,7 +47,6 @@ do_configure () {
 }
 
 do_compile() {
-    unset KBUILD_OUTPUT KERNEL_SOURCE KERNEL_PATH
     cd ${S}
 
     # Compile the ethercat tool program
