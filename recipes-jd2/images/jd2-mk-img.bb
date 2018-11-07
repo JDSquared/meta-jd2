@@ -15,7 +15,6 @@ IMAGE_FEATURES += " \
 CORE_IMAGE_EXTRA_INSTALL += " \
 	packagegroup-core-full-cmdline \
 	packagegroup-core-buildessential \
-	modutils-modinfo \
 	nano \
 	nodejs \
 	flex \
