@@ -6,7 +6,6 @@ LICENSE = "GPLv2"
 LIC_FILES_CHKSUM = "file://COPYING;md5=59530bdf33659b29e73d4adb9f9f6552"
 
 S = "${WORKDIR}/git"
-COMBINED_SRC = "${WORKDIR}/linux_combined"
 
 SRCBRANCH = "stable-1.5"
 SRCREV = "f1942fdb564edec9a067c7e0c487f2d53b5f548b"
@@ -21,16 +20,17 @@ SRC_URI = "${ETH_SRC};branch=${SRCBRANCH} \
             file://99-ethercat.rules \
 "
 
-inherit autotools systemd useradd
+inherit autotools systemd useradd module-base
 
 USERADD_PACKAGES = "${PN}"
 GROUPADD_PARAM_${PN} = "ethercat"
 
-EXTRA_OECONF = "--with-linux-dir=${COMBINED_SRC} \
+EXTRA_OECONF = "--with-linux-dir=${STAGING_KERNEL_BUILDDIR} \
      --disable-8139too --disable-e100 --disable-e1000 --disable-e1000e \
      --disable-r8169 --enable-generic --enable-hrtimer --enable-sii-assign \
 "
 
+do_configure[depends] += "virtual/kernel:do_compile_kernelmodules"
 do_configure () {  
     cd ${S}
     ./bootstrap
