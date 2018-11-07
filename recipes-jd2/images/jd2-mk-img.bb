@@ -25,7 +25,6 @@ CORE_IMAGE_EXTRA_INSTALL += " \
 	python-compiler \
 	strace \
 	openssl \
-	kernel-devsrc \
 	igh-ethercat \
 "
 
