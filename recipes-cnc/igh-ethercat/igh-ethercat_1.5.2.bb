@@ -25,7 +25,7 @@ inherit autotools systemd useradd module-base
 USERADD_PACKAGES = "${PN}"
 GROUPADD_PARAM_${PN} = "ethercat"
 
-EXTRA_OECONF = "--with-linux-dir=${STAGING_KERNEL_BUILDDIR} \
+EXTRA_OECONF = "--with-linux-dir=${STAGING_KERNEL_BUILDDIR} --disable-eoe \
      --disable-8139too --disable-e100 --disable-e1000 --disable-e1000e \
      --disable-r8169 --enable-generic --enable-hrtimer --enable-sii-assign \
 "

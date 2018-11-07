@@ -128,9 +128,6 @@ fi
 # set module list productive
 mv ${MODLIST}.tmp ${MODLIST}
 
-# update initramfs
-update-initramfs -u
-
 exit_success
 
 #------------------------------------------------------------------------------
