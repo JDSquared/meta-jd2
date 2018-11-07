@@ -8,13 +8,10 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=59530bdf33659b29e73d4adb9f9f6552"
 S = "${WORKDIR}/git"
 
 SRCBRANCH = "master"
-SRCREV = "2e30fca8b586544cc3e39b5fff470c77ab6c2ee2"
-ETH_SRC ?= "git://github.com/JDSquared/etherlabmaster.git;protocol=https"
+SRCREV = "c8d01403b41134384239f021ebabb0daa09dc896"
+ETH_SRC ?= "https://github.com/ribalda/ethercat.git;protocol=https"
 SRC_URI = "${ETH_SRC};branch=${SRCBRANCH} \
             file://0010_fix_distclean.patch \
-            file://0020_fix_read_pdo_count.patch \
-            file://0030_relax_al_state_change_timeout.patch \
-            file://0040_RTAI_module_cflags.patch \
             file://0060_systemd_unit.patch \
             file://update-ethercat-config \
             file://99-ethercat.rules \
