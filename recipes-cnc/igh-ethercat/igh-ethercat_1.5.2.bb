@@ -32,15 +32,6 @@ EXTRA_OECONF = "--with-linux-dir=${COMBINED_SRC} \
 "
 
 do_configure () {  
-    # Make a combined linux src directory for this package to compile.
-    # It's slow and heavy, but this is the easiest way to get it to work for now.
-    mkdir ${WORKDIR}/linux_combined || true
-    rm -rf ${WORKDIR}/linux_combined/*
-
-    cp -a ${STAGING_KERNEL_DIR}/. ${WORKDIR}/linux_combined/
-    cp -a ${STAGING_KERNEL_BUILDDIR}/. ${WORKDIR}/linux_combined/
-    rm ${WORKDIR}/linux_combined/source 
-
     cd ${S}
     ./bootstrap
     oe_runconf
