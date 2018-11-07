@@ -9,7 +9,7 @@ S = "${WORKDIR}/git"
 
 SRCBRANCH = "master"
 SRCREV = "c8d01403b41134384239f021ebabb0daa09dc896"
-ETH_SRC ?= "https://github.com/ribalda/ethercat.git;protocol=https"
+ETH_SRC ?= "git://github.com/ribalda/ethercat.git;protocol=https"
 SRC_URI = "${ETH_SRC};branch=${SRCBRANCH} \
             file://0010_fix_distclean.patch \
             file://0060_systemd_unit.patch \
