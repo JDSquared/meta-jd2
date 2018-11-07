@@ -24,7 +24,7 @@ GROUPADD_PARAM_${PN} = "ethercat"
 
 EXTRA_OECONF = "--with-linux-dir=${STAGING_KERNEL_BUILDDIR} --enable-eoe \
      --disable-8139too --disable-e100 --disable-e1000 --disable-e1000e \
-     --disable-r8169 --enable-generic --enable-hrtimer --enable-sii-assign \
+     --disable-r8169 --enable-generic --enable-hrtimer --disable-sii-assign \
 "
 
 do_configure[depends] += "virtual/kernel:do_compile_kernelmodules"
