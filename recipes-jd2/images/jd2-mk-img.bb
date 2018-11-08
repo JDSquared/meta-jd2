@@ -26,6 +26,7 @@ CORE_IMAGE_EXTRA_INSTALL += " \
 	strace \
 	openssl \
 	igh-ethercat \
+	kernel-devsrc \
 "
 
 EXTRA_USERS_PARAMS = " \
